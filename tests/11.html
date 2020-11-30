@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button onclick="test()">click me</button>
+<script>
+    function test() {
+        asyncFn(1);
+        setInterval(() => {
+                asyncFn(2)
+            }
+                , 3000);
+    }
+    async function asyncFn (i) {
+        return new Promise((resolve, reject) => {
+            resolve(true);
+        }).then((res) => {
+            console.log(i + " = success");
+        })
+    }
+</script>
+</body>
+</html>
