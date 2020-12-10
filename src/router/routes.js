@@ -1,7 +1,4 @@
-import register from "./modules/register";
-import user from "./modules/user";
-
-const meta = { auth: true };
+import demo from "./modules/demo";
 
 /**
  * 在主框架内显示
@@ -15,6 +12,17 @@ const frameIn = [
     path: "/home",
     name: "home",
     redirect: { name: "index" },
+    component: () => import("@/views/Home"),
+    meta: {
+      hidden: false,
+      icon: "",
+      title: "首页",
+      auth: true,
+    },
+    children: [...demo],
+  },
+  {
+    path: "/",
     meta: {
       auth: true,
     },
@@ -46,12 +54,6 @@ const frameIn = [
       },
     ],
   },
-  user,
-  {
-    path: "/service",
-    name: "service",
-    component: () => import("@/views/About"),
-  },
 ];
 
 /**
@@ -62,20 +64,33 @@ const frameOut = [
   {
     path: "/login",
     name: "login",
-    component: () => import("@/views/About"),
+    component: () => import("@/views/Login"),
+    meta: {
+      hidden: true,
+      icon: "",
+      title: "登录",
+      auth: false,
+    },
   },
   {
-    path: "/authLogin",
-    name: "authLogin",
-    component: () => import("@/views/About"),
+    path: "/register",
+    name: "register",
+    component: () => import("@/views/Register"),
+    meta: {
+      hidden: true,
+      icon: "",
+      title: "注册",
+      auth: false,
+    },
   },
   {
     path: "/logout",
     name: "logout",
     redirect: { name: "login" },
-    meta,
+    meta: {
+      auth: true,
+    },
   },
-  register,
 ];
 
 /**
@@ -87,12 +102,23 @@ const errorPage = [
     path: "/error",
     name: "error",
     component: () => import("@/views/About"),
-    meta,
+    meta: {
+      hidden: false,
+      icon: "",
+      title: "error",
+      auth: true,
+    },
   },
   {
     path: "*",
     name: "404",
     component: () => import("@/views/About"),
+    meta: {
+      hidden: false,
+      icon: "",
+      title: "404",
+      auth: false,
+    },
   },
 ];
 

@@ -35,37 +35,38 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   // 进度条
   NProgress.start();
-  if (to.matched.length === 0) {
-    // 匹配路由是否存在
-    next({
-      name: "404",
-    });
-    NProgress.done();
-  } else {
-    if (to.matched.some((r) => r.meta.auth)) {
-      // 验证当前路由所有的匹配中是否需要有登录验证的
-      // 这里暂时将cookie里是否存有token作为验证是否登录的条件
-      // 请根据自身业务需要修改 发送请求校验session是否到期
-      const token = util.cookies.get("token");
-      if (token && token !== "undefined") {
+  // 验证当前路由所有的匹配中是否需要有登录验证的
+  // 这里暂时将cookie里是否存有token作为验证是否登录的条件
+  // 请根据自身业务需要修改 发送请求校验session是否到期
+  const token = util.cookies.get("token");
+  if (token && token !== "undefined") {
+    // 动态新增路由
+    if (to.matched.length === 0) {
+      // 匹配路由是否存在
+      next({
+        name: "404",
+      });
+      NProgress.done();
+    } else {
+      if (to.matched.some((r) => r.meta.auth)) {
         next();
         NProgress.done();
       } else {
-        // 没有登录的时候跳转到登录界面
-        // 携带上登陆成功之后需要跳转的页面完整路径
-        next({
-          name: "login",
-          query: {
-            redirect: to.fullPath,
-          },
-        });
+        // 不需要身份校验 直接通过
+        next();
         NProgress.done();
       }
-    } else {
-      // 不需要身份校验 直接通过
-      next();
-      NProgress.done();
     }
+  } else {
+    // 没有登录的时候跳转到登录界面
+    // 携带上登陆成功之后需要跳转的页面完整路径
+    next({
+      name: "login",
+      query: {
+        redirect: to.fullPath,
+      },
+    });
+    NProgress.done();
   }
 });
 

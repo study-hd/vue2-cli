@@ -4,9 +4,7 @@
 const resolve = (dir) => require("path").join(__dirname, dir);
 // 增加环境变量
 process.env.VUE_APP_VERSION = require("./package.json").version;
-process.env.VUE_APP_BUILD_TIME = require("dayjs")().format(
-  "yyyy-MM-dd HH:mm:ss"
-);
+process.env.VUE_APP_BUILD_TIME = require("dayjs")().format("yyyy-MM-dd HH:mm:ss");
 
 module.exports = {
   publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
@@ -121,6 +119,19 @@ module.exports = {
     config.resolve.alias.set("@api", resolve("src/api"));
     // node
     config.node.set("__dirname", true).set("__filename", true);
+    // set svg-sprite-loader
+    config.module.rule("svg").exclude.add(resolve("src/assets/icons")).end();
+    config.module
+      .rule("icons")
+      .test(/\.svg$/)
+      .include.add(resolve("src/assets/icons"))
+      .end()
+      .use("svg-sprite-loader")
+      .loader("svg-sprite-loader")
+      .options({
+        symbolId: "icon-[name]",
+      })
+      .end();
   },
   configureWebpack: {
     resolve: {
