@@ -2,18 +2,24 @@
     <div class="about">
         <h1>This is an about page</h1>
         <img alt="Vue logo" src="../assets/logo.png" />
-        <HelloWorld msg="Welcome to Your Vue.js App" />
+        <el-button @click="collapse = !collapse"></el-button>
+        <Menu :collapse="collapse"></Menu>
     </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import Menu from "@/components/menu/Menu.vue";
 
 export default {
     name: "About",
     components: {
-        HelloWorld,
+        Menu,
+    },
+    data() {
+        return {
+            collapse: false,
+        };
     },
 };
 </script>

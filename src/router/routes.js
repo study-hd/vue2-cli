@@ -14,9 +14,6 @@ const frameIn = [
     redirect: { name: "index" },
     component: () => import("@/views/Home"),
     meta: {
-      hidden: false,
-      icon: "",
-      title: "首页",
       auth: true,
     },
     children: [...demo],
@@ -32,7 +29,6 @@ const frameIn = [
       {
         path: "refresh",
         name: "refresh",
-        hidden: true,
         component: {
           beforeRouteEnter(to, from, next) {
             next((vm) => vm.$router.replace(from.fullPath));
@@ -44,7 +40,6 @@ const frameIn = [
       {
         path: "redirect/:route*",
         name: "redirect",
-        hidden: true,
         component: {
           beforeRouteEnter(to, from, next) {
             next((vm) => vm.$router.replace(JSON.parse(from.params.route)));
@@ -68,6 +63,7 @@ const frameOut = [
     meta: {
       hidden: true,
       icon: "",
+      noCache: false,
       title: "登录",
       auth: false,
     },
@@ -79,6 +75,7 @@ const frameOut = [
     meta: {
       hidden: true,
       icon: "",
+      noCache: false,
       title: "注册",
       auth: false,
     },
@@ -103,8 +100,9 @@ const errorPage = [
     name: "error",
     component: () => import("@/views/About"),
     meta: {
-      hidden: false,
+      hidden: true,
       icon: "",
+      noCache: false,
       title: "error",
       auth: true,
     },
@@ -114,8 +112,9 @@ const errorPage = [
     name: "404",
     component: () => import("@/views/About"),
     meta: {
-      hidden: false,
+      hidden: true,
       icon: "",
+      noCache: false,
       title: "404",
       auth: false,
     },

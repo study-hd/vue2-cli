@@ -71,9 +71,15 @@ module.exports = {
     sourceMap: process.env.NODE_ENV !== "production",
     // css预设器配置项
     loaderOptions: {
+      css: {
+        // 这里的选项会传递给 css-loader
+      },
+      postcss: {
+        // 这里的选项会传递给 postcss-loader
+      },
       // 设置 scss 公用变量文件
       sass: {
-        prependData: `@import "~@/assets/style/public.scss";`,
+        additionalData: `@import "~@/assets/style/public.scss";`,
       },
     },
     // 启用 CSS modules for all css / pre-processor files.

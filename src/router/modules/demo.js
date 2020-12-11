@@ -6,6 +6,7 @@ export default [
     meta: {
       hidden: false,
       icon: "",
+      noCache: false,
       title: "首页",
       auth: true,
     },
