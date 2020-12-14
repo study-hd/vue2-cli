@@ -3,7 +3,7 @@
         <h1>This is an about page</h1>
         <img alt="Vue logo" src="../assets/logo.png" />
         <el-button @click="collapse = !collapse"></el-button>
-        <Menu :collapse="collapse"></Menu>
+        <Menu :menuList="menuList" :collapse="collapse"></Menu>
     </div>
 </template>
 
@@ -16,6 +16,17 @@ export default {
     components: {
         Menu,
     },
+    // 通过store获取菜单信息，且事实监控
+    computed: {
+        menuList() {
+            return this.$store.getters["menu"];
+        },
+    },
+    // watch: {
+    //     menuList(newVal, oldVal) {
+    //         this.menuList = newVal;
+    //     },
+    // },
     data() {
         return {
             collapse: false,

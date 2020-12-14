@@ -52,10 +52,10 @@ export default {
                 },
             ];
             console.log(dataList);
-            this.$store.dispatch("store/menus", {
+            this.$store.dispatch("store/menu", {
                 dataList,
             });
-            console.log(this.$store.getters["store/menus/getMenu"]);
+            console.log(this.$store.getters["store/menu"]);
             util.cookies.set("token", "token");
             // this.$router.push({ path: "/index" });
         },
