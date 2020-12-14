@@ -1,4 +1,4 @@
-import util from "@/libs/util.js";
+import util from "@/libs/util";
 import { Login } from "@/api/user";
 
 export default {

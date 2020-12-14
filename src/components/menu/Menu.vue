@@ -1,11 +1,7 @@
 <template>
     <el-menu :default-active="defaultActive" :collapse="collapse" @select="selectMenu">
-        <template v-for="(item, index) in routerList">
-            <el-menu-item index="2">
-                <i class="el-icon-menu"></i>
-                <span slot="title">导航二</span>
-            </el-menu-item>
-            <el-submenu index="1">
+        <template v-for="(item, index) in menuList">
+            <el-submenu v-if="!item.children" :index="index" :key="index">
                 <template slot="title">
                     <i class="el-icon-location"></i>
                     <span slot="title">导航一</span>
@@ -23,6 +19,10 @@
                     <el-menu-item index="1-4-1">选项1</el-menu-item>
                 </el-submenu>
             </el-submenu>
+            <el-menu-item v-else :index="index" :key="index">
+                <i class="el-icon-menu"></i>
+                <span slot="title">导航二</span>
+            </el-menu-item>
         </template>
     </el-menu>
 </template>
@@ -40,68 +40,20 @@ export default {
         return {
             defaultActive: "",
             uniqueOpened: false,
-            routerList: [],
         };
     },
-    created() {
-        this.initMenu();
+    // 通过store获取菜单信息，且事实监控
+    computed: {
+        menuList() {
+            return this.$store.getters["menu"];
+        },
     },
+    // watch: {
+    //     menuList(newVal, oldVal) {
+    //         this.menuList = newVal;
+    //     },
+    // },
     methods: {
-        initMenu() {
-            const dataList = [
-                {
-                    key: "index",
-                    name: "首页",
-                    title: "首页",
-                    path: "index",
-                    fileUrl: "About",
-                    icon: "el-icon-location",
-                    hidden: true,
-                    disabled: false,
-                    auth: true,
-                    noCache: false,
-                },
-                {
-                    key: "test",
-                    name: "测试",
-                    title: "测试",
-                    path: "test",
-                    fileUrl: "test/DynamicTest",
-                    icon: "el-icon-location",
-                    hidden: true,
-                    disabled: false,
-                    auth: true,
-                    noCache: false,
-                    children: [
-                        {
-                            key: "test2",
-                            name: "测试2",
-                            title: "测试2",
-                            path: "test2",
-                            fileUrl: "test/DynamicTest2",
-                            icon: "el-icon-location",
-                            hidden: true,
-                            disabled: false,
-                            auth: true,
-                            noCache: false,
-                        }
-                    ],
-                },
-            ];
-            this.setRouter(this.routerList, dataList);
-        },
-        setRouter(routerList, dataList) {
-            for (let data of dataList) {
-                data.path = "/" + data.path;
-                data['component'] = () => import("@/views/" + data.fileUrl)
-                if (data.children && data.children.length > 0) {
-                    this.setItemRouter(routerList, dataList);
-                }
-            }
-        },
-        setItemRouter(routerList, dataList) {
-
-        },
         selectMenu(index, indexPath) {
             console.log("select-menu", index, indexPath);
             this.$router.push({ path: "/" });

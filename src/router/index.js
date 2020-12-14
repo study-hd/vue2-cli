@@ -63,25 +63,23 @@ router.beforeEach(async (to, from, next) => {
     NProgress.done();
   } else {
     // 动态路由处理
-    next();
-    NProgress.done();
+    if (to.matched.length === 0) {
+      // 匹配路由是否存在
+      next({
+        name: "404",
+      });
+      NProgress.done();
+    } else {
+      if (to.matched.some((r) => r.meta.auth)) {
+        next();
+        NProgress.done();
+      } else {
+        // 不需要身份校验 直接通过
+        next();
+        NProgress.done();
+      }
+    }
   }
-  //   // if (to.matched.length === 0) {
-  //   //   // 匹配路由是否存在
-  //   //   next({
-  //   //     name: "404",
-  //   //   });
-  //   //   NProgress.done();
-  //   // } else {
-  //   //   if (to.matched.some((r) => r.meta.auth)) {
-  //   //     next();
-  //   //     NProgress.done();
-  //   //   } else {
-  //   //     // 不需要身份校验 直接通过
-  //   //     next();
-  //   //     NProgress.done();
-  //   //   }
-  //   // }
 });
 
 router.afterEach((to) => {
@@ -90,5 +88,35 @@ router.afterEach((to) => {
   // 进度条
   NProgress.done();
 });
+
+// 解决页面警告信息 return () => Promise.resolve(require(`@/views/${view}`).default)
+// export const setRouter = (routerList, dataList) => {
+//   // 必须为根路由，不能在其他地方生成component，除非在stor里面
+//   let rootRouter = {
+//     path: "/home",
+//     name: "home",
+//     redirect: { name: "index" },
+//     component: () => import("@/views/Home"),
+//     meta: {
+//       auth: true,
+//     },
+//     children: [],
+//   };
+//   for (let data of rootRouter) {
+//     data.path = "/" + data.path;
+//     data["component"] = () => import("@/views/" + data.fileUrl);
+//     if (data.children && data.children.length > 0) {
+//       this.setItemRouter(routerList, dataList);
+//     }
+//   }
+// };
+
+// export const setItemRouter = (routerList, dataList) => {
+//   console.log(routerList, dataList);
+// };
+// export const loadView = (view) => {
+//   // 路由懒加载
+//   return (resolve) => require([`@/views/${view}`], resolve);
+// };
 
 export default router;
