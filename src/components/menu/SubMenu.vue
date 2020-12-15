@@ -4,12 +4,14 @@
             <i :class="subMenuList.icon"></i>
             <span slot="title">{{ subMenuList.title }}</span>
         </template>
-        <el-menu-item v-for="(item, index) in subMenuList.children" :index="item.key" :key="index">
-            <!-- 此处图标可以自定义 -->
-            <i :class="item.icon"></i>
-            <span slot="title">{{ item.title }}</span>
-            <SubMenu v-if="item.children" :subMenuList="item.children"></SubMenu>
-        </el-menu-item>
+        <template v-for="(item, index) in subMenuList.children">
+            <el-menu-item v-if="!item.children || item.children.length === 0" :index="item.key" :key="index">
+                <!-- 此处图标可以自定义 -->
+                <i :class="subMenuList.icon"></i>
+                <span slot="title">{{ item.title }}</span>
+            </el-menu-item>
+            <SubMenu v-else :subMenuList="item" :key="index"></SubMenu>
+        </template>
     </el-submenu>
 </template>
 
@@ -20,12 +22,15 @@ export default {
     name: "SubMenu",
     props: {
         subMenuList: {
-            type: Array,
-            default: () => [],
+            type: Object,
+            default: () => {},
         },
     },
     components: {
         SubMenu,
+    },
+    created() {
+        console.log(this.subMenuList);
     },
 };
 </script>

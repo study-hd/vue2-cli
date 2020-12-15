@@ -42,22 +42,33 @@ export default {
                             title: "测试2",
                             path: "test2",
                             fileUrl: "test/DynamicTest2",
-                            icon: "el-icon-location",
+                            icon: "",
                             hidden: true,
                             disabled: false,
                             auth: true,
                             noCache: false,
+                            children: [
+                                {
+                                    key: "test3",
+                                    name: "测试3",
+                                    title: "测试3",
+                                    path: "test3",
+                                    fileUrl: "test/DynamicTest2",
+                                    icon: "",
+                                    hidden: true,
+                                    disabled: false,
+                                    auth: true,
+                                    noCache: false,
+                                },
+                            ],
                         },
                     ],
                 },
             ];
-            console.log(dataList);
-            this.$store.dispatch("store/menu", {
-                dataList,
-            });
-            console.log(this.$store.getters["store/menu"]);
+            this.$store.dispatch("store/menus/commitMenus", dataList);
+            console.log();
             util.cookies.set("token", "token");
-            // this.$router.push({ path: "/index" });
+            this.$router.push({ path: "/index" });
         },
     },
 };

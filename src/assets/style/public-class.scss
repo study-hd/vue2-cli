@@ -49,8 +49,23 @@
 }
 
 // 边距相关
-$sizes: (0, 5, 10, 15, 20);
+// $i: 20;
+// @while $i > 0 {
+//   .#{$prefix}-m-#{$i} { margin: #{$i}px; }
+//   .#{$prefix}-mt-#{$i} { margin-top: #{$i}px; }
+//   .#{$prefix}-mr-#{$i} { margin-right: #{$i}px; }
+//   .#{$prefix}-mb-#{$i} { margin-bottom: #{$i}px; }
+//   .#{$prefix}-ml-#{$i} { margin-left: #{$i}px; }
 
+//   .#{$prefix}-p-#{$i} { padding: #{$i}px; }
+//   .#{$prefix}-pt-#{$i} { padding-top: #{$i}px; }
+//   .#{$prefix}-pr-#{$i} { padding-right: #{$i}px; }
+//   .#{$prefix}-pb-#{$i} { padding-bottom: #{$i}px; }
+//   .#{$prefix}-pl-#{$i} { padding-left: #{$i}px; }
+//   $i: $i - 5;
+// }
+
+$sizes: (0, 5, 10, 15, 20);
 @for $index from 1 to 6 {
   .#{$prefix}-m-#{nth($sizes, $index)} { margin: #{nth($sizes, $index)}px !important; }
   .#{$prefix}-mt-#{nth($sizes, $index)} { margin-top: #{nth($sizes, $index)}px !important; }

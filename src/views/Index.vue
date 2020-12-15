@@ -2,6 +2,10 @@
     <div class="home">
         <el-container class="header">
             <el-header>
+                <div :class="isCollapse ? 'logo logo-collapse' : 'logo'">
+                    <object v-show="!isCollapse" :data="imgSrc[0]" width="210" height="50" type="image/svg+xml" codebase="http://www.adobe.com/svg/viewer/install/" />
+                    <object v-show="isCollapse" :data="imgSrc[1]" width="55" height="50" type="image/svg+xml" codebase="http://www.adobe.com/svg/viewer/install/" />
+                </div>
                 <div class="com-pointer change-collapse">
                     <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'" @click="toggleCollapse"></i>
                 </div>
@@ -12,7 +16,7 @@
         </el-container>
         <el-container class="content">
             <el-aside width="auto">
-                <Menu :menuList="menuList" :collapse="isCollapse"></Menu>
+                <!--      <menu-main :isCollapse="isCollapse" class="el-menu-main"></menu-main>-->
             </el-aside>
             <el-main>
                 <keep-alive>
@@ -24,12 +28,8 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import Storage from "@/libs/storage";
-import Menu from "@/components/menu/Menu.vue";
-
 export default {
-    name: "Home",
+    name: "Index",
     components: {
         Menu,
     },
@@ -68,20 +68,5 @@ export default {
     width: 200px;
     height: 200px;
     margin-top: 20px;
-}
-.home {
-    width: 100%;
-    height: 100vh;
-    overflow: auto;
-    .header {
-        .el-header {
-            padding: 0;
-            display: flex;
-            align-items: center;
-        }
-        .logo {
-            background-color: #000;
-        }
-    }
 }
 </style>
