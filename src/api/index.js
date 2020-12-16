@@ -5,6 +5,5 @@ const baseURL = {
   logout: baseURI + "/logout",
   getPhoneCode: baseURI + "/getPhoneCode",
   getUserInfo: userURI + "/getUserInfo",
-  getMenus: userURI + "/getMenus",
 };
 export default baseURL;

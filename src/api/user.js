@@ -29,9 +29,9 @@ export function logout(data) {
   });
 }
 
-export function getMenus(data) {
+export function getUserInfo(data) {
   return request({
-    url: baseURL.getMenus,
+    url: baseURL.getUserInfo,
     method: "GET",
     data,
   });

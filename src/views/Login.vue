@@ -10,15 +10,16 @@ import { mapActions } from "vuex";
 export default {
     name: "Login",
     methods: {
-        ...mapActions("store/account", ["login"]),
+        ...mapActions("store/user", ["login"]),
         async submitForm() {
+            // 调用store的登录，然后存储各种数据
             await this.login({
                 username: "admin",
                 password: "admin123",
             }).then((resp) => {
                 console.log(resp);
+                this.$router.push({ path: "/index" });
             });
-            await this.$router.push({ path: "/index" });
         },
     },
 };

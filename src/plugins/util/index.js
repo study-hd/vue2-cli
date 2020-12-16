@@ -22,35 +22,13 @@ util.title = function (titleText) {
  * @param {String} url 地址
  */
 util.open = function (url) {
-  var a = document.createElement("a");
+  let a = document.createElement("a");
   a.setAttribute("href", url);
   a.setAttribute("target", "_blank");
-  a.setAttribute("id", "link");
+  a.setAttribute("id", "open_window_blank");
   document.body.appendChild(a);
   a.click();
-  document.body.removeChild(document.getElementById("query-id"));
-};
-
-// 处理token
-util.dealToken = function (str) {
-  if (str.indexOf("=") > -1) {
-    let arr = str.split(";");
-    for (let item of arr) {
-      if (item.indexOf("token_") > -1) {
-        return item.split("=")[1];
-      }
-    }
-  }
-  return "";
-};
-
-// 清除表单信息
-util.clearFrom = function (obj) {
-  if (obj !== undefined && obj != null && obj !== "") {
-    for (let key in obj) {
-      obj[key] = "";
-    }
-  }
+  document.body.removeChild(document.getElementById("open_window_blank"));
 };
 
 export default util;
