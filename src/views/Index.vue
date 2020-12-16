@@ -1,11 +1,7 @@
 <template>
-    <div class="home">
+    <div class="index">
         <el-container class="header">
             <el-header>
-                <div :class="isCollapse ? 'logo logo-collapse' : 'logo'">
-                    <object v-show="!isCollapse" :data="imgSrc[0]" width="210" height="50" type="image/svg+xml" codebase="http://www.adobe.com/svg/viewer/install/" />
-                    <object v-show="isCollapse" :data="imgSrc[1]" width="55" height="50" type="image/svg+xml" codebase="http://www.adobe.com/svg/viewer/install/" />
-                </div>
                 <div class="com-pointer change-collapse">
                     <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'" @click="toggleCollapse"></i>
                 </div>
@@ -16,7 +12,7 @@
         </el-container>
         <el-container class="content">
             <el-aside width="auto">
-                <!--      <menu-main :isCollapse="isCollapse" class="el-menu-main"></menu-main>-->
+                <Menu :collapse="isCollapse"></Menu>
             </el-aside>
             <el-main>
                 <keep-alive>
@@ -28,6 +24,8 @@
 </template>
 
 <script>
+import Menu from "@/components/menu/Menu.vue";
+
 export default {
     name: "Index",
     components: {
@@ -38,13 +36,6 @@ export default {
             imgSrc: [require("@/assets/logo.png"), require("@/assets/logo.png")],
             isCollapse: false,
         };
-    },
-    // 通过store获取菜单信息，且事实监控
-    computed: {
-        menuList() {
-            console.log(this.$store.getters["store/menus/getMenus"]);
-            return Storage.getSessionItem("menus");
-        },
     },
     // watch: {
     //     menuList(newVal, oldVal) {
@@ -68,5 +59,20 @@ export default {
     width: 200px;
     height: 200px;
     margin-top: 20px;
+}
+.index {
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    .header {
+        .el-header {
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+        .logo {
+            background-color: #000;
+        }
+    }
 }
 </style>

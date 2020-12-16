@@ -1,52 +1,38 @@
-import request from "@/plugin/axios";
-import baseURL from "./index";
+/*
+ * 用户相关
+ * */
 
-export function GetPhoneCheck(data) {
+import request from "@/plugins/axios";
+import baseURL from "@/api/index";
+
+export function getPhoneCode(data) {
   return request({
-    url: baseURL + "/constant/getPhoneCheck",
-    method: "post",
+    url: baseURL.getPhoneCode,
+    method: "GET",
     data,
   });
 }
-export function Login(data) {
+
+export function login(data) {
   return request({
-    url: baseURL + "/user/login",
-    method: "post",
+    url: baseURL.login,
+    method: "POST",
     data,
   });
 }
-export function AuthLogin(data) {
+
+export function logout(data) {
   return request({
-    url: baseURL + "/user/authLogin",
-    method: "post",
+    url: baseURL.logout,
+    method: "GET",
     data,
   });
 }
-export function Logout(data) {
+
+export function getMenus(data) {
   return request({
-    url: baseURL + "/logout",
-    method: "get",
-    data,
-  });
-}
-export function Session(data) {
-  return request({
-    url: baseURL + "/user/session",
-    method: "get",
-    data,
-  });
-}
-export function Check(data) {
-  return request({
-    url: baseURL + "/user/service/check",
-    method: "get",
-    data,
-  });
-}
-export function AccountLogin(data) {
-  return request({
-    url: baseURL + "/login",
-    method: "post",
+    url: baseURL.getMenus,
+    method: "GET",
     data,
   });
 }

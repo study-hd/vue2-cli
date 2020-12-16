@@ -1,8 +1,8 @@
 export default [
   {
-    path: "/index",
-    name: "index",
-    component: () => import("@/views/About"),
+    path: "/home",
+    name: "home",
+    component: () => import("@/views/Home"),
     meta: {
       hidden: false,
       icon: "",

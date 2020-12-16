@@ -6,13 +6,13 @@ import demo from "./modules/demo";
 const frameIn = [
   {
     path: "/",
-    redirect: { name: "home" },
+    redirect: { name: "index" },
   },
   {
-    path: "/home",
-    name: "home",
-    redirect: { name: "index" },
-    component: () => import("@/views/Home"),
+    path: "/index",
+    name: "index",
+    redirect: { name: "home" },
+    component: () => import("@/views/Index"),
     meta: {
       auth: true,
     },
@@ -98,7 +98,7 @@ const errorPage = [
   {
     path: "/error",
     name: "error",
-    component: () => import("@/views/About"),
+    component: () => import("@/views/error/Error"),
     meta: {
       hidden: true,
       icon: "",
@@ -108,9 +108,21 @@ const errorPage = [
     },
   },
   {
+    path: "/404",
+    name: "404",
+    component: () => import("@/views/error/404"),
+    meta: {
+      hidden: true,
+      icon: "",
+      noCache: false,
+      title: "404",
+      auth: false,
+    },
+  },
+  {
     path: "*",
     name: "404",
-    component: () => import("@/views/About"),
+    component: () => import("@/views/error/404"),
     meta: {
       hidden: true,
       icon: "",

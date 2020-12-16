@@ -1,12 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "@/store";
 
 // 进度条
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
 // 日志等打印
-import util from "@/libs/util";
+import util from "@/plugins/util";
 
 // 路由数据，真是个奇葩的东西，不能命名为router相关的
 import routes from "./routes";
@@ -26,6 +27,7 @@ Vue.use(VueRouter);
 // 导出路由 在 main.js 里使用
 const router = new VueRouter({
   mode: process.env.NODE_ENV === "production" ? "history" : "hash",
+  scrollBehavior: () => ({ y: 0 }),
   routes,
 });
 
@@ -62,6 +64,7 @@ router.beforeEach(async (to, from, next) => {
     });
     NProgress.done();
   } else {
+    console.log(await store.dispatch("store/user/load"));
     // 动态路由处理
     if (to.matched.length === 0) {
       // 匹配路由是否存在
@@ -88,35 +91,5 @@ router.afterEach((to) => {
   // 进度条
   NProgress.done();
 });
-
-// 解决页面警告信息 return () => Promise.resolve(require(`@/views/${view}`).default)
-// export const setRouter = (routerList, dataList) => {
-//   // 必须为根路由，不能在其他地方生成component，除非在stor里面
-//   let rootRouter = {
-//     path: "/home",
-//     name: "home",
-//     redirect: { name: "index" },
-//     component: () => import("@/views/Home"),
-//     meta: {
-//       auth: true,
-//     },
-//     children: [],
-//   };
-//   for (let data of rootRouter) {
-//     data.path = "/" + data.path;
-//     data["component"] = () => import("@/views/" + data.fileUrl);
-//     if (data.children && data.children.length > 0) {
-//       this.setItemRouter(routerList, dataList);
-//     }
-//   }
-// };
-
-// export const setItemRouter = (routerList, dataList) => {
-//   console.log(routerList, dataList);
-// };
-// export const loadView = (view) => {
-//   // 路由懒加载
-//   return (resolve) => require([`@/views/${view}`], resolve);
-// };
 
 export default router;

@@ -1,5 +1,5 @@
 import store from "@/store";
-import util from "@/libs/util";
+import util from "@/plugins/util";
 
 export default {
   // eslint-disable-next-line no-unused-vars

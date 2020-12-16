@@ -29,9 +29,6 @@ export default {
     components: {
         SubMenu,
     },
-    created() {
-        console.log(this.subMenuList);
-    },
 };
 </script>
 

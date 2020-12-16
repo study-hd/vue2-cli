@@ -16,15 +16,13 @@
 </template>
 
 <script>
+// @ is an alias to /src
 import SubMenu from "@/components/menu/SubMenu";
+import Storage from "@/libs/storage";
 
 export default {
     name: "Menu",
     props: {
-        menuList: {
-            type: Array,
-            default: () => [],
-        },
         collapse: {
             type: Boolean,
             default: false,
@@ -39,6 +37,14 @@ export default {
             defaultActive: "",
             uniqueOpened: false,
         };
+    },
+    // 通过store获取菜单信息，且事实监控
+    computed: {
+        menuList() {
+            console.log(Storage.getSessionItem("menus"));
+            console.log(this.$store.getters["store/menus/getMenus"]);
+            return this.$store.getters["store/menus/getMenus"];
+        },
     },
     methods: {
         selectMenu(index, indexPath) {
