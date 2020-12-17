@@ -1,6 +1,91 @@
 import util from "@/plugins/util";
 // import { login, logout, getUserInfo } from "@/api/user";
-import { setRouter } from "@/router/getRouters";
+
+// 模拟返回数据，后端要处理掉按钮级别的数据，前端不做处理，对应的数据一定要存储int或者char
+// let returnDemo = {
+//   id: 1, // 当前id
+//   parentId: 0, // 父菜单id 0 代表顶级菜单
+//   orderNum: 1, // 显示顺序 array.sort((a,b) => {return a.id - b.id});
+//   type: 0, // 菜单类型 0 目录，1菜单，2按钮
+//   name: "", // 菜单名称
+//   title: "", // 页面标题
+//   path: "", // 路由地址
+//   component: "", // 组件路径
+//   redirect: "", // 组件路径
+//   icon: "", // 菜单图标 判断包含的内容是否包含组件以及自定义标签，否则只支持svg格式 icon.length-4 === (icon.indexOf(".svg") || icon.indexOf(".SVG"));
+//   isLink: 0, // 是否为外链 默认0，1代表外链，外链时路由地址即为绝对路径
+//   isCache: 0, // 是否缓存 默认0，1 keep-alive 缓存数据
+//   isVisible: 0, // 是否展示隐藏 默认0，1 隐藏当前
+//   isDisable: 1, // 是否可点击 默认1，0不可点 !isDisable
+//   isSideMenu: 1, // 是否展示侧边栏 默认1，0不展示
+//   status: 1, // 菜单状态 默认1，0停用
+//   perms: "*", // 权限标识 admin:system:*
+// };
+
+// 组装动态路由
+const setRouter = (dataList) => {
+  // 必须为根路由，不能在其他地方生成component，除非在store里面
+  // () => Promise.resolve(require(`@/views/${view}`).default)
+  // () => import("@/views/Index"),
+  // (resolve) => require([`@/views/${view}`], resolve);
+  let blackRouter = {
+    path: "",
+    redirect: { name: "index" },
+  };
+  let rootRouter = {
+    path: "/",
+    redirect: { name: "index" },
+  };
+  let addRouters = {
+    path: "/index",
+    name: "index",
+    redirect: { name: "home" },
+    component: () => import(`@/views/Index`),
+    meta: {
+      auth: true,
+    },
+    children: [],
+  };
+  let allRouter = {
+    path: "*",
+    name: "*",
+    component: () => import(`@/views/error/404`),
+    meta: {
+      icon: "",
+      title: "404",
+      auth: false,
+      isDisable: true,
+      isCache: false,
+    },
+  };
+  setItemRouter(addRouters.children, dataList, "");
+  return [blackRouter, rootRouter, addRouters, allRouter];
+};
+const setItemRouter = (routerList, dataList, baseUrl) => {
+  for (let data of dataList) {
+    let route = {
+      path: baseUrl + "/" + data.path,
+      name: data.path,
+      redirect: "",
+      component: (resolve) => require([`@/views/${data.component}`], resolve),
+      meta: {
+        icon: "",
+        title: data.title,
+        auth: true,
+        isDisable: !data.isDisable,
+        isCache: !data.isCache,
+      },
+      children: [],
+    };
+    if (data.children && data.children.length > 0) {
+      route.redirect = { name: data.children[0].path };
+      routerList.push(route);
+      setItemRouter(route.children, data.children, baseUrl + data.path);
+    } else {
+      routerList.push(route);
+    }
+  }
+};
 
 export default {
   namespaced: true,
@@ -15,18 +100,36 @@ export default {
     menus: [],
     routes: [],
   },
+  getters: {
+    getMenus: (state) => {
+      return state.menus;
+    },
+    getRoutes: (state) => {
+      return state.routes;
+    },
+  },
   mutations: {
     setUserInfo: (state, userInfo) => {
       state.name = userInfo.name || "";
-      state.avatar = userInfo.avatar === "" ? require("@/assets/logo.png") : process.env.VUE_APP_BASE_API + user.avatar;
+      state.avatar = userInfo.avatar === "" ? require("@/assets/logo.png") : process.env.VUE_APP_BASE_API + userInfo.avatar;
       state.roles = userInfo.roles || [];
       state.permissions = userInfo.permissions || [];
     },
-    setMenus: () => {},
-    setRouters: () => {},
+    setToken: (state, token) => {
+      state.token = token;
+    },
+    setUUID: (state, uuid) => {
+      state.uuid = uuid;
+    },
+    setMenus: (state, menus) => {
+      state.menus = menus;
+    },
+    setRouters: (state, routers) => {
+      state.routers = routers;
+    },
   },
   actions: {
-    login(userInfo) {
+    login({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         // // 开始请求登录接口
         // login(userInfo)
@@ -45,10 +148,16 @@ export default {
         //     reject(error);
         //   });
         console.log("login ", userInfo);
-        util.cookies.set("uuid", Math.floor(Math.random() * 10000000));
-        util.cookies.set("token", Math.floor(Math.random() * 10000000));
-        resolve();
-        reject("err");
+        userInfo["token"] = Math.floor(Math.random() * 10000000);
+        userInfo["uuid"] = Math.floor(Math.random() * 10000000);
+        util.cookies.set("uuid", userInfo.token);
+        util.cookies.set("token", userInfo.uuid);
+        commit("setToken", userInfo.token);
+        commit("setUUID", userInfo.uuid);
+        resolve(userInfo);
+        if (!userInfo) {
+          reject("error");
+        }
       });
     },
     logout({ state }) {
@@ -70,102 +179,130 @@ export default {
         console.log("logout ", state.token, state.uuid);
         util.cookies.remove("token");
         util.cookies.remove("uuid");
-        resolve();
-        reject("err");
+        resolve(state);
+        if (!state.token) {
+          reject("error");
+        }
       });
     },
-    async getUserInfo({ commit, state }) {
-      // let userParams = {
-      //   token: state.token,
-      //   uuid: state.uuid,
-      // };
-      // await getUserInfo(userParams)
-      //   .then(async (resp) => {
-      //     await commit("setUserInfo", resp.user);
-      //     await commit("setMenus", resp.user.menus);
-      //     await commit("setRouters", setRouter(resp.user.menus));
-      //   })
-      //   .catch((error) => {
-      //     util.log.danger(">>>>>> 获取用户信息失败 >>>>>>", error);
-      //   });
-
-      const menus = [
-        {
-          path: "/home",
-          name: "home",
-          component: () => import("@/views/Home"),
-          meta: {
-            hidden: false,
-            icon: "",
-            noCache: false,
+    getUserInfo({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        // let userParams = {
+        //   token: state.token,
+        //   uuid: state.uuid,
+        // };
+        // await getUserInfo(userParams)
+        //   .then(async (resp) => {
+        //     await commit("setUserInfo", resp.user);
+        //     await commit("setMenus", resp.user.menus);
+        //     let routers = setRouter(resp.user.menus);
+        //     commit("setRouters", routers);
+        //     let menuAndRouters = {
+        //       menus: resp.user.menus,
+        //       routers: routers,
+        //     };
+        //     resolve(menuAndRouters);
+        //   })
+        //   .catch((error) => {
+        //     util.log.danger(">>>>>> 获取用户信息失败 >>>>>>", error);
+        //   });
+        const returnData = [
+          {
+            id: 1,
+            orderNum: 1,
+            type: 0,
+            name: "首页",
             title: "首页",
-            auth: true,
+            path: "index",
+            component: "Home",
+            redirect: "",
+            icon: "el-icon-location",
+            isLink: 0,
+            isCache: 0,
+            isVisible: 0,
+            isDisable: 1,
+            isSideMenu: 1,
+            status: 1,
+            perms: "admin:system:*",
           },
-        },
-        {
-          key: "home",
-          name: "首页",
-          title: "首页",
-          path: "index",
-          fileUrl: "Home",
-          icon: "el-icon-location",
-          hidden: true,
-          disabled: false,
-          auth: true,
-          noCache: false,
-        },
-        {
-          key: "test",
-          name: "测试",
-          title: "测试",
-          path: "test",
-          fileUrl: "test/DynamicTest",
-          icon: "el-icon-location",
-          hidden: true,
-          disabled: false,
-          auth: true,
-          noCache: false,
-          children: [
-            {
-              key: "test2",
-              name: "测试2",
-              title: "测试2",
-              path: "test2",
-              fileUrl: "test/DynamicTest2",
-              icon: "",
-              hidden: true,
-              disabled: false,
-              auth: true,
-              noCache: false,
-              children: [
-                {
-                  key: "test3",
-                  name: "测试3",
-                  title: "测试3",
-                  path: "test3",
-                  fileUrl: "test/DynamicTest2",
-                  icon: "",
-                  hidden: true,
-                  disabled: false,
-                  auth: true,
-                  noCache: false,
-                },
-              ],
-            },
-          ],
-        },
-      ];
-      let userInfo = {
-        token: state.token,
-        uuid: state.uuid,
-        name: "name",
-        roles: [],
-        permissions: [],
-        menus: menus,
-      };
-      await commit("setUserInfo", userInfo);
-      await commit("setMenus", userInfo.menus);
-      await commit("setRouters", setRouter(userInfo.menus));
+          {
+            id: 2,
+            orderNum: 2,
+            type: 0,
+            name: "测试",
+            title: "测试",
+            path: "test",
+            component: "",
+            redirect: "",
+            icon: "el-icon-location",
+            isLink: 0,
+            isCache: 0,
+            isVisible: 0,
+            isDisable: 1,
+            isSideMenu: 1,
+            status: 1,
+            perms: "admin:system:*",
+            children: [
+              {
+                id: 3,
+                orderNum: 1,
+                type: 0,
+                name: "测试1",
+                title: "测试1",
+                path: "test1",
+                component: "test/DynamicTest",
+                redirect: "",
+                icon: "el-icon-location",
+                isLink: 0,
+                isCache: 0,
+                isVisible: 0,
+                isDisable: 1,
+                isSideMenu: 1,
+                status: 1,
+                perms: "admin:system:*",
+              },
+              {
+                id: 4,
+                orderNum: 2,
+                type: 0,
+                name: "测试2",
+                title: "测试2",
+                path: "test2",
+                component: "test/DynamicTest2",
+                redirect: "",
+                icon: "el-icon-location",
+                isLink: 0,
+                isCache: 0,
+                isVisible: 0,
+                isDisable: 1,
+                isSideMenu: 1,
+                status: 1,
+                perms: "admin:system:*",
+              },
+            ],
+          },
+        ];
+        let userInfo = {
+          token: state.token,
+          uuid: state.uuid,
+          name: "name",
+          roles: [],
+          permissions: [],
+          menus: returnData,
+        };
+        commit("setUserInfo", userInfo);
+        commit("setMenus", userInfo.menus);
+        let routers = setRouter(userInfo.menus);
+        commit("setRouters", routers);
+        let menuAndRouters = {
+          menus: userInfo.menus,
+          routers: routers,
+        };
+        resolve(menuAndRouters);
+        if (!userInfo) {
+          reject("error");
+        }
+      });
     },
   },
 };

@@ -1,23 +1,23 @@
-import demo from "./modules/demo";
+// import demo from "./modules/demo";
 
 /**
  * 在主框架内显示
  */
 const frameIn = [
-  {
-    path: "/",
-    redirect: { name: "index" },
-  },
-  {
-    path: "/index",
-    name: "index",
-    redirect: { name: "home" },
-    component: () => import("@/views/Index"),
-    meta: {
-      auth: true,
-    },
-    children: [...demo],
-  },
+  // {
+  //   path: "/",
+  //   redirect: { name: "index" },
+  // },
+  // {
+  //   path: "/index",
+  //   name: "index",
+  //   redirect: { name: "home" },
+  //   component: () => import("@/views/Index"),
+  //   meta: {
+  //     auth: true,
+  //   },
+  //   children: [...demo],
+  // },
   {
     path: "/",
     meta: {
@@ -88,12 +88,6 @@ const frameOut = [
       auth: true,
     },
   },
-];
-
-/**
- * 错误页面
- */
-const errorPage = [
   // 404
   {
     path: "/error",
@@ -122,4 +116,4 @@ const errorPage = [
 ];
 
 // 重新组织后导出
-export default [...frameIn, ...frameOut, ...errorPage];
+export default [...frameIn, ...frameOut];

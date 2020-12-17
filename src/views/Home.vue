@@ -1,6 +1,9 @@
 <template>
     <div class="home">
         <img alt="Vue logo" src="../assets/logo.png" />
+        <el-button @click="$router.push({ path: '/404' })">to 404</el-button>
+        <el-button @click="$router.push({ path: '/error' })">to error</el-button>
+        <el-button @click="$router.push({ path: '/test' })">to test</el-button>
     </div>
 </template>
 

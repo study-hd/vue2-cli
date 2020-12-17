@@ -1,11 +1,11 @@
 <template>
-    <el-submenu :index="subMenuList.key">
+    <el-submenu :index="subMenuList.path">
         <template slot="title">
             <i :class="subMenuList.icon"></i>
             <span slot="title">{{ subMenuList.title }}</span>
         </template>
         <template v-for="(item, index) in subMenuList.children">
-            <el-menu-item v-if="!item.children || item.children.length === 0" :index="item.key" :key="index">
+            <el-menu-item v-if="!item.children || item.children.length === 0" :index="resolvePath(item.path)" :key="index">
                 <!-- 此处图标可以自定义 -->
                 <i :class="subMenuList.icon"></i>
                 <span slot="title">{{ item.title }}</span>
@@ -28,6 +28,11 @@ export default {
     },
     components: {
         SubMenu,
+    },
+    methods: {
+        resolvePath(path) {
+            return this.subMenuList.path + "/" + path;
+        },
     },
 };
 </script>

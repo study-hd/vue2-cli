@@ -18,7 +18,7 @@ export default {
                 password: "admin123",
             }).then((resp) => {
                 console.log(resp);
-                this.$router.push({ path: "/index" });
+                this.$router.push({ path: "/" });
             });
         },
     },
