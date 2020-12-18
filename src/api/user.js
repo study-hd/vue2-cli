@@ -2,11 +2,11 @@
  * 用户相关
  * */
 
-import request from "@/plugins/axios";
-import baseURL from "@/api/index";
+import axios from "@/plugins/axios";
+import baseURL from "./index";
 
 export function getPhoneCode(data) {
-  return request({
+  return axios({
     url: baseURL.getPhoneCode,
     method: "GET",
     data,
@@ -14,25 +14,25 @@ export function getPhoneCode(data) {
 }
 
 export function login(data) {
-  return request({
+  return axios({
     url: baseURL.login,
-    method: "POST",
+    method: "post",
     data,
   });
 }
 
 export function logout(data) {
-  return request({
+  return axios({
     url: baseURL.logout,
-    method: "GET",
+    method: "post",
     data,
   });
 }
 
 export function getUserInfo(data) {
-  return request({
+  return axios({
     url: baseURL.getUserInfo,
-    method: "GET",
+    method: "post",
     data,
   });
 }

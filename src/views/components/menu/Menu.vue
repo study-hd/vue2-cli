@@ -1,5 +1,5 @@
 <template>
-    <el-menu :default-active="defaultActive" :collapse="collapse" @select="selectMenu" popper-append-to-body>
+    <el-menu class="menus" :default-active="defaultActive" :collapse="collapse" @select="selectMenu" popper-append-to-body>
         <template v-for="(item, index) in menuList">
             <el-menu-item v-if="!item.children || item.children.length === 0" :index="item.path" :key="index">
                 <!-- 此处图标可以自定义 -->
@@ -48,4 +48,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.menus {
+    height: 100vh;
+}
+</style>

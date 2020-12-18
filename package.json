@@ -29,6 +29,7 @@
     "js-cookie": "^2.2.1",
     "lodash": "^4.17.20",
     "lowdb": "^1.0.0",
+    "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "qs": "^6.9.4",
     "register-service-worker": "^1.7.2",

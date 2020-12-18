@@ -1,22 +1,18 @@
 <template>
     <div class="index">
-        <el-container class="header">
+        <el-container>
             <el-header>
-                <div class="com-pointer change-collapse">
-                    <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'" @click="toggleCollapse"></i>
-                </div>
-                <div :class="isCollapse ? 'com-text-right info-collapse' : 'com-text-right info'">
-                    <router-link to="/demo">Demo</router-link>
-                </div>
+                <Header @isCollapse="toggleCollapse"></Header>
             </el-header>
         </el-container>
-        <el-container class="content">
+        <el-container>
             <el-aside width="auto">
                 <Menu :collapse="isCollapse"></Menu>
             </el-aside>
             <el-main>
+                <!-- :include="whiteList" :exclude="blackList" :max="amount"-->
                 <keep-alive>
-                    <router-view></router-view>
+                    <transition><router-view></router-view></transition>
                 </keep-alive>
             </el-main>
         </el-container>
@@ -24,55 +20,36 @@
 </template>
 
 <script>
-import Menu from "@/components/menu/Menu.vue";
+import Header from "./components/header/Header";
+import Menu from "./components/menu/Menu";
 
 export default {
     name: "Index",
     components: {
+        Header,
         Menu,
     },
     data() {
         return {
-            imgSrc: [require("@/assets/logo.png"), require("@/assets/logo.png")],
             isCollapse: false,
         };
     },
-    // watch: {
-    //     menuList(newVal, oldVal) {
-    //         this.menuList = newVal;
-    //     },
-    // },
     methods: {
-        toggleCollapse() {
-            this.isCollapse = !this.isCollapse;
+        toggleCollapse(value) {
+            this.isCollapse = value;
         },
     },
 };
 </script>
 
 <style lang="scss" scoped>
-.title {
-    font-size: 16px;
-}
-.test-box {
-    background-color: aqua;
-    width: 200px;
-    height: 200px;
-    margin-top: 20px;
-}
 .index {
     width: 100%;
-    height: 100vh;
-    overflow: auto;
-    .header {
-        .el-header {
-            padding: 0;
-            display: flex;
-            align-items: center;
-        }
-        .logo {
-            background-color: #000;
-        }
+    height: 100%;
+    .el-header {
+        padding: 0;
+        display: flex;
+        align-items: center;
     }
 }
 </style>

@@ -99,7 +99,7 @@ module.exports = {
     proxy: {
       // 可以根据不同的URL通过不同的URL代理请求
       "/api": {
-        target: "http://0.0.0.0:9001",
+        target: "http://0.0.0.0:9999",
         pathRewrite: {
           "^/api": "", // remove base path
         },

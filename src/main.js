@@ -3,7 +3,6 @@ import App from "@/App.vue";
 import "@/registerServiceWorker";
 import router from "@/router";
 import store from "@/store";
-import "@/router/addRouters";
 
 import "@/plugins/globals";
 import "@/plugins/filters";
@@ -21,6 +20,10 @@ Vue.directive("anchor", {
     };
   },
 });
+
+if (process.env.VUE_APP_MOCK) {
+  require("@/mock");
+}
 
 new Vue({
   router,

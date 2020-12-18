@@ -16,9 +16,8 @@ export default {
             await this.login({
                 username: "admin",
                 password: "admin123",
-            }).then((resp) => {
-                console.log(resp);
-                this.$router.push({ path: "/" });
+            }).then(() => {
+                this.$router.push({ path: "/index" });
             });
         },
     },

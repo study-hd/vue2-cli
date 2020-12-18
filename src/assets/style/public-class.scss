@@ -3,14 +3,14 @@
 @import '~@/assets/style/icon/glyphicon.scss';
 
 // 补丁 base
-@import '~@/assets/style/fixed/base.scss';
+@import '~@/assets/style/reset/base.scss';
 // 补丁 element
-@import '~@/assets/style/fixed/element.scss';
+@import '~@/assets/style/reset/element.scss';
 // 补丁 n-progress
-@import '~@/assets/style/fixed/n-progress.scss';
+@import '~@/assets/style/reset/n-progress.scss';
 
 // 动画
-@import '~@/assets/style/animate/vue-transition.scss';
+@import '~@/assets/style/reset/vue-transition.scss';
 
 // 在这里写公用的class
 // 注意 这个文件里只写class
@@ -67,17 +67,17 @@
 
 $sizes: (0, 5, 10, 15, 20);
 @for $index from 1 to 6 {
-  .#{$prefix}-m-#{nth($sizes, $index)} { margin: #{nth($sizes, $index)}px !important; }
-  .#{$prefix}-mt-#{nth($sizes, $index)} { margin-top: #{nth($sizes, $index)}px !important; }
-  .#{$prefix}-mr-#{nth($sizes, $index)} { margin-right: #{nth($sizes, $index)}px !important; }
-  .#{$prefix}-mb-#{nth($sizes, $index)} { margin-bottom: #{nth($sizes, $index)}px !important; }
-  .#{$prefix}-ml-#{nth($sizes, $index)} { margin-left: #{nth($sizes, $index)}px !important; }
+  .#{$prefix}-m-#{$index} { margin: #{$index}px !important; }
+  .#{$prefix}-mt-#{$index} { margin-top: #{$index}px !important; }
+  .#{$prefix}-mr-#{$index} { margin-right: #{$index}px !important; }
+  .#{$prefix}-mb-#{$index} { margin-bottom: #{$index}px !important; }
+  .#{$prefix}-ml-#{$index} { margin-left: #{$index}px !important; }
 
-  .#{$prefix}-p-#{nth($sizes, $index)} { padding: #{nth($sizes, $index)}px !important; }
-  .#{$prefix}-pt-#{nth($sizes, $index)} { padding-top: #{nth($sizes, $index)}px !important; }
-  .#{$prefix}-pr-#{nth($sizes, $index)} { padding-right: #{nth($sizes, $index)}px !important; }
-  .#{$prefix}-pb-#{nth($sizes, $index)} { padding-bottom: #{nth($sizes, $index)}px !important; }
-  .#{$prefix}-pl-#{nth($sizes, $index)} { padding-left: #{nth($sizes, $index)}px !important; }
+  .#{$prefix}-p-#{$index} { padding: #{$index}px !important; }
+  .#{$prefix}-pt-#{$index} { padding-top: #{$index}px !important; }
+  .#{$prefix}-pr-#{$index} { padding-right: #{$index}px !important; }
+  .#{$prefix}-pb-#{$index} { padding-bottom: #{$index}px !important; }
+  .#{$prefix}-pl-#{$index} { padding-left: #{$index}px !important; }
 }
 
 // 快速使用

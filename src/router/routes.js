@@ -1,60 +1,9 @@
 // import demo from "./modules/demo";
 
 /**
- * 在主框架内显示
+ * 无需权限访问、或重定向路由定义
  */
-const frameIn = [
-  // {
-  //   path: "/",
-  //   redirect: { name: "index" },
-  // },
-  // {
-  //   path: "/index",
-  //   name: "index",
-  //   redirect: { name: "home" },
-  //   component: () => import("@/views/Index"),
-  //   meta: {
-  //     auth: true,
-  //   },
-  //   children: [...demo],
-  // },
-  {
-    path: "/",
-    meta: {
-      auth: true,
-    },
-    children: [
-      // 首页 必须 name:index
-      // 刷新页面 必须保留
-      {
-        path: "refresh",
-        name: "refresh",
-        component: {
-          beforeRouteEnter(to, from, next) {
-            next((vm) => vm.$router.replace(from.fullPath));
-          },
-          render: (h) => h(),
-        },
-      },
-      // 页面重定向 必须保留
-      {
-        path: "redirect/:route*",
-        name: "redirect",
-        component: {
-          beforeRouteEnter(to, from, next) {
-            next((vm) => vm.$router.replace(JSON.parse(from.params.route)));
-          },
-          render: (h) => h(),
-        },
-      },
-    ],
-  },
-];
-
-/**
- * 在主框架之外显示
- */
-const frameOut = [
+export default [
   // 登录
   {
     path: "/login",
@@ -114,6 +63,3 @@ const frameOut = [
     },
   },
 ];
-
-// 重新组织后导出
-export default [...frameIn, ...frameOut];
