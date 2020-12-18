@@ -10,7 +10,7 @@
                 <Menu :collapse="isCollapse"></Menu>
             </el-aside>
             <el-main>
-                <!-- :include="whiteList" :exclude="blackList" :max="amount"-->
+                <!-- :include="whiteList" :exclude="blackList" :max="amount" 是否缓存页面，后期添加-->
                 <keep-alive>
                     <transition><router-view></router-view></transition>
                 </keep-alive>
