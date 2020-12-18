@@ -1,16 +1,18 @@
 <template>
-    <div class="header">
-        <transition name="el-fade-in-linear">
+    <div class="header flex-base">
+        <transition name="fade-transverse" class="flex-center-row">
             <div :class="isCollapse ? 'logo logo-collapse' : 'logo'">
                 <object v-show="!isCollapse" :data="imgSrc[0]" width="210" height="50" type="image/svg+xml" codebase="http://www.adobe.com/svg/viewer/install/" />
                 <object v-show="isCollapse" :data="imgSrc[1]" width="55" height="50" type="image/svg+xml" codebase="http://www.adobe.com/svg/viewer/install/" />
             </div>
         </transition>
-        <div class="com-pointer change-collapse">
-            <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'" @click="toggleCollapse"></i>
-        </div>
-        <div :class="isCollapse ? 'com-text-right info-collapse' : 'com-text-right info'">
-            <router-link to="/demo">Demo</router-link>
+        <div class="flex-space-between cc-width">
+            <div class="cc-pointer flex-center-row cc-ml-5">
+                <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'" @click="toggleCollapse"></i>
+            </div>
+            <div class="flex-center-row cc-mr-20" :class="isCollapse ? 'cc-text-right info-collapse' : 'cc-text-right info'">
+                <router-link to="/demo">Demo</router-link>
+            </div>
         </div>
     </div>
 </template>
@@ -34,16 +36,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title {
-    font-size: 16px;
-}
-.test-box {
-    background-color: aqua;
-    width: 200px;
-    height: 200px;
-    margin-top: 20px;
-}
 .header {
+    width: 100%;
     .logo {
         background-color: #000;
     }

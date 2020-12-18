@@ -1,11 +1,11 @@
 <template>
-    <div class="index">
-        <el-container>
+    <div class="index cc-width">
+        <el-container class="header-box cc-width">
             <el-header>
                 <Header @isCollapse="toggleCollapse"></Header>
             </el-header>
         </el-container>
-        <el-container>
+        <el-container class="main-box cc-width">
             <el-aside width="auto">
                 <Menu :collapse="isCollapse"></Menu>
             </el-aside>
@@ -44,12 +44,23 @@ export default {
 
 <style lang="scss" scoped>
 .index {
-    width: 100%;
-    height: 100%;
     .el-header {
         padding: 0;
         display: flex;
         align-items: center;
+    }
+    .header-box {
+        height: 60px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+    }
+    .main-box {
+        position: relative;
+        z-index: 1000;
+        height: calc(100vh - 60px);
+        margin-top: 60px;
     }
 }
 </style>
