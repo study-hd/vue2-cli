@@ -5,6 +5,10 @@ import store from "@/store";
 // 进度条
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+// Import component
+// import Loading from "vue-loading-overlay";
+// Import stylesheet
+// import "vue-loading-overlay/dist/vue-loading.css";
 
 // 日志等打印
 import util from "@/plugins/util";
