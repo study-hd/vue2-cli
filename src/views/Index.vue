@@ -11,9 +11,10 @@
             </el-aside>
             <el-main>
                 <!-- :include="whiteList" :exclude="blackList" :max="amount" 是否缓存页面，后期添加-->
-                <keep-alive>
+                <keep-alive v-if="$route.meta.isCache">
                     <transition><router-view></router-view></transition>
                 </keep-alive>
+                <router-view v-else></router-view>
             </el-main>
         </el-container>
     </div>
