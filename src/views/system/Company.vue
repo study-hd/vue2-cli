@@ -1,10 +1,10 @@
 <template>
-    <div>动态追加页面测试路由2</div>
+    <div>Company</div>
 </template>
 
 <script>
 export default {
-    name: "DynamicTest2",
+    name: "Company",
 };
 </script>
 

@@ -1,10 +1,10 @@
 <template>
-    <div>Tcom</div>
+    <div>Test</div>
 </template>
 
 <script>
 export default {
-    name: "Tcom",
+    name: "TestView",
 };
 </script>
 

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import SubMenu from "@/components/menu/SubMenu";
+import SubMenu from "./SubMenu";
 
 export default {
     name: "SubMenu",

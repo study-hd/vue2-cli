@@ -15,7 +15,7 @@
 
 <script>
 // @ is an alias to /src
-import SubMenu from "@/components/menu/SubMenu";
+import SubMenu from "./SubMenu";
 
 export default {
     name: "Menu",

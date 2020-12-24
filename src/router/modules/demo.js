@@ -23,26 +23,14 @@ export default [
     },
     children: [
       {
-        path: "/test/test1",
-        name: "test1",
-        component: () => import("@/views/test/DynamicTest"),
+        path: "/test/test",
+        name: "test",
+        component: () => import("@/views/test/TestView"),
         meta: {
           hidden: false,
           icon: "",
           noCache: false,
-          title: "测试1",
-          auth: true,
-        },
-      },
-      {
-        path: "/test/test2",
-        name: "test2",
-        component: () => import("@/views/test/DynamicTest2"),
-        meta: {
-          hidden: false,
-          icon: "",
-          noCache: false,
-          title: "测试2",
+          title: "测试",
           auth: true,
         },
       },
