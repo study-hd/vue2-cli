@@ -96,7 +96,7 @@ router.beforeEach(async (to, from, next) => {
           });
           next({ ...to, replace: true });
           // next();
-          // NProgress.done();
+          NProgress.done();
         })
         .catch((error) => {
           console.log(error);
