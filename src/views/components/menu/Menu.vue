@@ -1,13 +1,13 @@
 <template>
     <el-scrollbar>
         <el-menu class="menus" :default-active="defaultActive" :collapse="collapse" @select="selectMenu" popper-append-to-body>
-            <template v-for="(item, index) in menuList">
-                <el-menu-item v-if="!item.children || item.children.length === 0" :index="item.path" :key="index">
+            <template v-for="item in menuList">
+                <el-menu-item v-if="!item.children || item.children.length === 0" :index="item.path" :key="item.id">
                     <!-- 此处图标可以自定义 -->
                     <i :class="item.icon"></i>
                     <span slot="title">{{ item.title }}</span>
                 </el-menu-item>
-                <SubMenu v-else :subMenuList="item" :key="index"></SubMenu>
+                <SubMenu v-else :subMenuList="item" :key="item.id"></SubMenu>
             </template>
         </el-menu>
     </el-scrollbar>
