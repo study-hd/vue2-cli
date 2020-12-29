@@ -1,16 +1,8 @@
-# vue3-dynamic
+# 该项目不再更新，已经在vue3项目开始学习搞起了。
+vue3-cli <https://github.com/chao921125/vue3-cli>
+
+# vue2-dynamic
 echarts 暂时不能升级到5.0.0
-
-## 设计功能
-1、权限菜单 <input type="checkbox" disabled checked/>
-
-2、菜单隐藏展示 <input type="checkbox" disabled checked/>
-
-3、按钮菜单
-
-4、菜单缓存
-
-5、国际化
 
 菜单：
 
