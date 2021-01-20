@@ -22,7 +22,7 @@ export default {
     name: "Header",
     data() {
         return {
-            imgSrc: [require("@/assets/logo.png"), require("@/assets/logo.png")],
+            imgSrc: [require("@/assets/images/header/person.svg"), require("@/assets/images/header/people.svg")],
             isCollapse: false,
         };
     },

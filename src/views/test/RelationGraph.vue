@@ -12,7 +12,7 @@
 <script>
 import SeeksRelationGraph from "relation-graph";
 export default {
-    name: "SeeksRelationGraphDemo",
+    name: "RelationGraph",
     components: { SeeksRelationGraph },
     data() {
         return {

@@ -93,7 +93,7 @@ module.exports = {
     publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
     open: process.platform === "darwin",
     host: "127.0.0.1",
-    port: 8888,
+    port: 8222,
     https: false,
     hotOnly: false,
     proxy: {
