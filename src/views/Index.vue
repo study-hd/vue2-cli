@@ -63,8 +63,7 @@ export default {
         height: calc(100vh - 60px);
         margin-top: 60px;
         .main-box {
-            padding: 0 !important;
-            margin: 20px !important;
+            margin: 10px !important;
             background-color: #fff;
         }
     }
