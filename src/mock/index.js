@@ -41,7 +41,7 @@ Mock.mock(baseURL.getUserInfo, "post", () => {
       type: 0,
       name: "测试",
       title: "测试",
-      path: "",
+      path: "test",
       component: "",
       redirect: "",
       icon: "el-icon-location",

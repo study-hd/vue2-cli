@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-loading="g_loading" style="margin-top: 50px; width: calc(100% - 10px); height: calc(100vh - 140px)">
+        <div v-loading="g_loading" style="width: calc(100% - 10px); height: calc(100vh - 140px)">
             <SeeksRelationGraph ref="seeksRelationGraph" :options="graphOptions" :on-node-expand="onNodeExpand" :on-node-collapse="onNodeCollapse"> </SeeksRelationGraph>
         </div>
         <el-button type="success" class="c-show-code-button">

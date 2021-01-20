@@ -1,7 +1,7 @@
 <template>
     <div class="header flex-base">
         <transition name="fade-transverse" class="flex-center-row header-menu">
-            <div :class="isCollapse ? 'logo logo-collapse' : 'logo'">
+            <div :class="isCollapse ? 'logo flex-center-row logo-collapse' : 'logo flex-center-row'">
                 <object v-show="!isCollapse" :data="imgSrc[0]" class="img-collapse" type="image/svg+xml" codebase="http://www.adobe.com/svg/viewer/install/" />
                 <object v-show="isCollapse" :data="imgSrc[1]" class="img-no-collapse" type="image/svg+xml" codebase="http://www.adobe.com/svg/viewer/install/" />
             </div>
@@ -22,7 +22,7 @@ export default {
     name: "Header",
     data() {
         return {
-            imgSrc: [require("@/assets/images/header/person.svg"), require("@/assets/images/header/people.svg")],
+            imgSrc: [require("@/assets/images/header/kehu.svg"), require("@/assets/images/header/shebao.svg")],
             isCollapse: false,
         };
     },

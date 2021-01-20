@@ -5,11 +5,11 @@
                 <Header @isCollapse="toggleCollapse"></Header>
             </el-header>
         </el-container>
-        <el-container class="main-box cc-width">
+        <el-container class="content-box cc-width">
             <el-aside width="auto">
                 <Menu :collapse="isCollapse"></Menu>
             </el-aside>
-            <el-main>
+            <el-main class="main-box">
                 <!-- :include="whiteList" :exclude="blackList" :max="amount" 是否缓存页面，后期添加-->
                 <keep-alive v-if="$route.meta.isCache">
                     <transition><router-view></router-view></transition>
@@ -57,11 +57,16 @@ export default {
         left: 0;
         z-index: 9999;
     }
-    .main-box {
+    .content-box {
         position: relative;
         z-index: 1000;
         height: calc(100vh - 60px);
         margin-top: 60px;
+        .main-box {
+            padding: 0 !important;
+            margin: 20px !important;
+            background-color: #fff;
+        }
     }
 }
 </style>
