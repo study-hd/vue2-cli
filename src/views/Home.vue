@@ -27,6 +27,15 @@
                 <div class="transition-box">el-collapse-transition</div>
             </div>
         </el-collapse-transition>
+
+        <el-image class="temp-img" v-loading="loading" placeholder="loading" :src="temp">
+            <div slot="placeholder">
+                <i class="el-icon-loading"></i>
+            </div>
+            <div slot="error">
+                <i class="el-icon-loading"></i>
+            </div>
+        </el-image>
     </div>
 </template>
 
@@ -35,10 +44,17 @@ export default {
     name: "Home",
     data() {
         return {
+            loading: false,
             imgSrc: [require("@/assets/logo.png"), require("@/assets/logo.png")],
             isCollapse: false,
             show: false,
+            temp: "",
         };
+    },
+    mounted() {
+        setTimeout(() => {
+            this.temp = "https://app-tradefinance-1259661131.cos.ap-hongkong.myqcloud.com/file/b3f36a7fa4fd40c286348f0f7f446240_6-4.png";
+        }, 3000);
     },
     methods: {
         toggleCollapse() {
@@ -55,5 +71,9 @@ export default {
     width: 200px;
     height: 100px;
     background-color: aqua;
+}
+.temp-img {
+    width: 100px;
+    height: 100px;
 }
 </style>
