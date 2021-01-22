@@ -36,6 +36,12 @@
                 <i class="el-icon-loading"></i>
             </div>
         </el-image>
+        <div class="flex-base">
+            <div class="slider-box">
+                <div class="slider" :style="{ width: sliderWidth + '%' }"></div>
+            </div>
+            <div>123</div>
+        </div>
     </div>
 </template>
 
@@ -49,6 +55,7 @@ export default {
             isCollapse: false,
             show: false,
             temp: "",
+            sliderWidth: 10,
         };
     },
     mounted() {
@@ -75,5 +82,14 @@ export default {
 .temp-img {
     width: 100px;
     height: 100px;
+}
+.slider-box {
+    width: calc(100% - 100px);
+    height: 20px;
+    background-color: aqua;
+    .slider {
+        height: 20px;
+        background-color: aquamarine;
+    }
 }
 </style>
