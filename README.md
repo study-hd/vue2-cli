@@ -1,4 +1,4 @@
-# 该项目不再更新，已经在vue3项目开始学习搞起了。
+# 该项目不再更新，已经在vue3项目开始学习搞起了。欢迎大家往里面舔砖加瓦。
 vue3-cli <https://github.com/chao921125/vue3-cli>
 
 # vue2-dynamic
