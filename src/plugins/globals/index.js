@@ -24,5 +24,5 @@ Vue.use(ElementUI, options);
 
 import "vuedraggable";
 
-import echarts from "echarts";
+import * as echarts from "echarts";
 Vue.prototype.$echarts = echarts;
