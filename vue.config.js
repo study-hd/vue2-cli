@@ -140,14 +140,15 @@ module.exports = {
       })
       .end();
   },
-  configureWebpack: {
-    resolve: {
+  configureWebpack: (config) => {
+    config.resolve = {
       extensions: [".js", ".json", ".vue", "css", "scss", "less"],
-    },
+    };
     // 忽略打包文件
-    externals: {
+    config.externals = {
       // 'v-charts': 'VeIndex'
-    },
+    };
+    config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true;
   },
   // 第三方插件配置
   pluginOptions: {
